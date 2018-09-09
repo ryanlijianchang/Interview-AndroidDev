@@ -112,7 +112,14 @@ Intent类型分为**显式Intent（直接类型）**、**隐式Intent（间接�
 	// 所以我们需要在AndroidManifest.xml中增加DEFAULT的catergory
 	startActivity(intent);
 
-这里只是列举了很普通的显式和隐式跳转Activity，至于Intent的其它属性都是大同小异，可以自行测试。
+***Scheme跳转***
+
+除此之外，一个比较重要的隐式跳转就是Scheme跳转，什么是Scheme跳转呢？
+
+我们都知道，一个普通的URL分为几个部分，`scheme`、`host`、`relativePath`、`query`。比如：`https://www.baidu.com/search/word=abc`，在这个链接里面，`scheme`就是`https`，`host`就是`www.baidu.com`，`relativePath`就是`search`，`query`就是`word=abc`。平时，我们都习惯了`http`类型的`scheme`，它一般就是对应着一个网页的URL，如果我们希望我们应用的每一个页面都对应着一个URL，我们应用内部的跳转就可以通过URL来跳转、其他应用也能通过URL来跳转到我们应用相应的页面，这个就是我们所说的通过Scheme实现应用内Activity的跳转。那么该如何实现呢？
+
+通常业内常用的做法就是定义一个通用的Activity，并设置该Activity的scheme，然后通过服务器下发一个scheme为该Activity定义的scheme的URL，在该Activity内对URL进行解析，分别解析出上面所说的`scheme`、`host`、`relativePath`、`query`，然后再跳转到我们所需要的Activity。
+
 
 ### 七、Activity的通信方式 ###
 
@@ -193,3 +200,5 @@ Intent是Android中组件连接的桥梁，我们都知道四大组件可以通�
 **4.通过数据存储实现传递数据**
 
 数据存储可以实现数据共享，在不同的Activity对存储的数据进行读写即可实现数据传递。在Android中，常见的文件存储有`SharedPreferences`、`文件存储`、`Sql存储`、`ContentProvider存储`，每种方式都有各自的优缺点，根据实际场景择优使用。
+
+
